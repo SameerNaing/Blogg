@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Account {
+  id                 String    @id @default(cuid())
+  userId             String
+  providerType       String
+  providerId         String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+
+  @@unique([providerId, providerAccountId])
+}
+
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  likes         Like[]
+  comments      Comment[]
+  blogPosts     Blog[]
+
+}
+
+model Blog{
+  id                  String    @id @default(cuid())
+  userID              String    
+  title               String    @db.VarChar(255)
+  image               String    @db.VarChar(255)
+  imageStorageRef     String    @db.VarChar(255)
+  blogData            String    @db.LongText
+  date                DateTime  @default(now())
+  likes               Like[]
+  comments            Comment[]
+  user                User      @relation(fields: [userID], references:[id])
+
+}
+
+model Like{
+  id            String    @id @default(cuid())
+  userID        String
+  blogID        String 
+  user          User      @relation(fields: [userID], references:[id])
+  blog          Blog      @relation(fields: [blogID], references:[id])
+}
+
+model Comment{
+  id            String    @id @default(cuid())
+  comment       String    @db.VarChar(255)
+  userID        String 
+  blogID        String 
+  user          User      @relation(fields: [userID], references:[id])
+  blog          Blog      @relation(fields: [blogID], references:[id])
+}
+
+
