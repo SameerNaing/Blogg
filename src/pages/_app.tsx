@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "development") {
   require("../../mocks/index");
 }
 
-/** Add editional keys to Window object */
+/** Add additional keys to Window object */
 declare global {
   interface Window {
     Cypress: any;
