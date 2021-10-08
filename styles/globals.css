@@ -3,3 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.editor {
+  margin-top: 150px;
+}
+
+@media screen and (min-width: 400px) {
+  .editor {
+    margin-top: 120px;
+  }
+}
+@media screen and (min-width: 500px) {
+  .editor {
+    margin-top: 100px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .editor {
+    margin-top: 70px;
+  }
+}
+@media screen and (min-width: 1186px) {
+  .editor {
+    margin-top: 30px;
+  }
+}

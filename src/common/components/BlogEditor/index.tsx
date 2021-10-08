@@ -40,7 +40,8 @@ const BlogEditor: React.FC<Props> = ({
         <Editor
           readOnly={readonly}
           toolbarHidden={readonly}
-          editorStyle={{ marginTop: readonly ? 0 : "30px" }}
+          editorStyle={{ marginTop: readonly ? 0 : "none" }}
+          editorClassName="editor"
           toolbarStyle={{
             position: "fixed",
             top: "70px",
